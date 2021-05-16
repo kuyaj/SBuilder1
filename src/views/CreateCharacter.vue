@@ -1,0 +1,131 @@
+<template>
+    <div class="create-character">
+        
+    <div class="card">
+      <div class="card-content">
+        <div class="input-field">
+          <input type="text" placeholder="이름에"  />
+        </div>
+      </div>
+      <div class="row">
+        <file-button></file-button>
+        <!-- <button class="select_button" @click="hello" >Upload</button> -->
+      </div>
+     
+    </div>
+    </div>
+</template>
+
+<script lang="ts">
+import { Vue, Options } from 'vue-class-component';
+import FileButton from '@/components/FileButton.vue';
+
+@Options({
+  components: {
+    "file-button": FileButton
+  }
+})
+export default class CreateCharacter extends Vue {
+    
+    
+    hello():void {
+        alert("I want to reck this game!")
+    }
+}
+</script>
+
+
+<style scoped>
+img {
+  width: 50%;
+  border-radius: 3px;
+}
+
+.select_button {
+  border: 1px solid #3498db;
+  padding: 10px;
+  border-radius: 5px;
+  background: white;
+  color: #3498db;
+  font-size: 16px;
+  margin-left: 5px;
+}
+
+.select_image {
+  border: transparent;
+  padding: 10px;
+  margin-bottom: 5px;
+  text-align: center;
+  width: 100%;
+}
+
+.create-character {
+  border: transparent;
+  padding: 10px;
+  background: transparent;
+}
+
+.card {
+  border: transparent;
+  border-radius: 3px;
+  padding: 20px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  margin-bottom: 5px;
+  background: white;
+  margin: 5px;
+}
+
+.card-header {
+  border: transparent;
+  padding: 10px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  margin-bottom: 5px;
+  background: white;
+}
+
+.card .card-content {
+  display: flex;
+  flex-direction: column;
+  border: transparent;
+  padding: 10px;
+}
+
+.card-content .input-field input {
+  border: transparent;
+  border-radius: 3px;
+  font-size: 15px;
+  background: #ecf0f1;
+  padding: 10px;
+  width: 100%;
+  margin-bottom: 4px;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.card-content .input-field select {
+  border: #ecf0f1 1px solid;
+  border-radius: 3px;
+  font-size: 15px;
+  padding: 10px;
+  min-width: 100%;
+  margin-bottom: 4px;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+button {
+  border-radius: 15px;
+  color: #fafafa;
+  margin-right: 4px;
+  outline: none;
+}
+
+
+</style>
