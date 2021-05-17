@@ -1,12 +1,12 @@
 <template>
   <div class="home">
     <h2>홈뱆에는 있읍니다</h2>
-     <div class="card-group">
-      <div class="card">
+    <div class="card-group">
+      <div class="card" v-for="(item, key) in characters" :key="key">
         <div class="card-photo">
-          <img/>
+          <img :src="item.photo" />
         </div>
-        <div class="card-name"> whatever </div>
+        <div class="card-name">{{ item.name }}</div>
         <div class="card-button">
           <button class="delete">Open</button>
         </div>
@@ -16,16 +16,33 @@
 </template>
 
 <script lang="ts">
+import { database } from '../firebaseConfig';
 
 import { Options, Vue } from 'vue-class-component'; // @ is an alias to /src
-export default class Home extends Vue {}
+export default class Home extends Vue {
+
+characters!:any; 
+
+created(){
+ 
+     database.ref("characters").on("value", (snapshot) => {
+      let character = Object.entries(snapshot.val()).map((item) => {
+        var [keys, values] = item;
+        var { name, link } = values;
+        return {
+          name: name,
+          photo: link,
+        };
+      });
+      this.characters = character;
+}
 </script>
 
 <style scoped>
- h2 {
-   text-align: center;
- }
- .card-group {
+h2 {
+  text-align: center;
+}
+.card-group {
   border: transparent;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -75,17 +92,15 @@ export default class Home extends Vue {}
 .card-photo img {
   width: 100%;
   overflow: hidden;
-  height: 20  0px;
+  height: 20 0px;
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
 }
 
-
-
 .delete {
   border: 1px solid #222f3e;
   padding: 5px 10px;
-  font-size: 14px;  
+  font-size: 14px;
   background: #222f3e;
   color: white;
 }
