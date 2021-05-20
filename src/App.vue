@@ -1,16 +1,16 @@
 <template>
   <navigator></navigator>
-  <router-view/>
+  <router-view />
 </template>
 
 <script lang="ts">
-import { Options, Vue, } from 'vue-class-component';
-import Navigator from '@/components/Navigator.vue';
+import { Options, Vue } from "vue-class-component";
+import Navigator from "@/components/Navigator.vue";
 
 @Options({
   components: {
     Navigator,
-  }
+  },
 })
 export default class App extends Vue {}
 </script>
@@ -24,5 +24,4 @@ body {
   color: #2c3e50;
   background-color: #ecf0f1;
 }
-
 </style>

@@ -1,3 +1,5 @@
+
+
 <template>
   <div class="home">
     <h2>홈뱆에는 있읍니다</h2>
@@ -8,7 +10,7 @@
         </div>
         <div class="card-name">{{ item.name }}</div>
         <div class="card-button">
-          <button class="delete">Open</button>
+          <button class="delete">지우다</button>
         </div>
       </div>
     </div>
@@ -16,12 +18,15 @@
 </template>
 
 <script lang="ts">
+
+
 import { database } from '../firebaseConfig';
 
-import { Options, Vue } from 'vue-class-component'; // @ is an alias to /src
+import { Options, Vue } from 'vue-class-component';
 export default class Home extends Vue {
 
 characters!:any; 
+
 
 created(){
  
@@ -38,14 +43,14 @@ created(){
 }
 </script>
 
-<style scoped>
+<style>
 h2 {
   text-align: center;
 }
 .card-group {
   border: transparent;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-gap: 5px;
   grid-auto-rows: minmax(100px, auto);
 }
@@ -98,10 +103,10 @@ h2 {
 }
 
 .delete {
-  border: 1px solid #222f3e;
+  border: transparent;
   padding: 5px 10px;
   font-size: 14px;
-  background: #222f3e;
+  background: #c0392b;
   color: white;
 }
 </style>

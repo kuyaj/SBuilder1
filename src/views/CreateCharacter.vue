@@ -1,36 +1,45 @@
 <template>
-    <div class="create-character">
-        
+  <div class="create-character">
     <div class="card">
       <div class="card-content">
         <div class="input-field">
-          <input type="text" placeholder="이름에"  />
+          <input type="text" placeholder="이름에" />
         </div>
       </div>
       <div class="row">
-        <file-button></file-button>
-        <!-- <button class="select_button" @click="hello" >Upload</button> -->
+        <img :src="image" />
       </div>
-     
+      <div class="row">
+        <file-button @onInputChange="getFile"></file-button>
+      </div>
     </div>
-    </div>
+  </div>
 </template>
 
 <script lang="ts">
-import { Vue, Options } from 'vue-class-component';
-import FileButton from '@/components/FileButton.vue';
+import { Vue, Options } from "vue-class-component";
+import FileButton from "@/components/FileButton.vue";
+import ButtonGeneral from "@/components/ButtonGeneral.vue";
 
 @Options({
   components: {
-    "file-button": FileButton
-  }
+    "file-button": FileButton,
+    "button-general": ButtonGeneral,
+  },
 })
 export default class CreateCharacter extends Vue {
-    
-    
-    hello():void {
-        alert("I want to reck this game!")
-    }
+  file!: any;
+  reader!: any;
+  image: any = "This is image!";
+
+  getFile(file: any): void {
+    this.file = file;
+    this.reader = new FileReader();
+    this.reader.onload = (e: any): void => {
+      this.image = e.target.result;
+    };
+    this.reader.readAsDataURL(this.file);
+  }
 }
 </script>
 
@@ -126,6 +135,4 @@ button {
   margin-right: 4px;
   outline: none;
 }
-
-
 </style>

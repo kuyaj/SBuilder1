@@ -1,31 +1,21 @@
 <template>
-    <div class="file-button">
-      <!-- <img :src="image" alt=""> -->
-      <input type="file" @change="selectPhoto" name="" id="fileButton" />
-      <label for="fileButton">Select</label>
-    </div>
+  <div class="file-button">
+    <!-- <img :src="image" alt=""> -->
+    <input type="file" @change="onInputChange" name="" id="fileButton" />
+    <label for="fileButton">Select</label>
+  </div>
 </template>
 
 <script lang="ts">
-
 // Add a PropOption for methods
-import { Vue } from 'vue-class-component';
-export default class FileButton extends Vue { 
-  
-   file!: any;
-   reader!: any;
-   image!: any;
+import { Vue } from "vue-class-component";
+import { Component, Emit } from "vue-property-decorator";
 
-
-    selectPhoto(e: any): void{
-      this.file = e.target.files[0];
-      this.reader = new FileReader();
-      this.reader.onload = (e: any): void => {
-        this.image = e.target.result;
-      };
-      this.reader.readAsDataURL(this.file);
-
-    }
+export default class FileButton extends Vue {
+  @Emit()
+  onInputChange(e) {
+    return e.target.files[0];
+  }
 }
 </script>
 
@@ -57,10 +47,10 @@ export default class FileButton extends Vue {
 #fileButton + label {
   border: transparent;
   color: white;
-  background-color:#222f3e;
+  background-color: #222f3e;
   padding: 8px 16px;
   margin: 1px;
-  font-size:14px;
+  font-size: 14px;
   border-radius: 12em;
 }
 

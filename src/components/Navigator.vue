@@ -4,17 +4,15 @@
       <router-link to="/">홈뱆에</router-link>
     </div>
     <div class="item">
-      <router-link to="/createcharacter">Create</router-link>
+      <router-link to="/createcharacter">창조하다</router-link>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Vue } from 'vue-class-component';
+import { Vue } from "vue-class-component";
 
-export default class Navigator extends Vue {
-    
-}
+export default class Navigator extends Vue {}
 </script>
 
 <style scoped>
