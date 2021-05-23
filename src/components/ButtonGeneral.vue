@@ -1,5 +1,5 @@
 <template>
-  <button class="button_general" @click="clicked">
+  <button class="button_general" @click="buttonClicked">
     {{ buttonName }}
   </button>
 </template>
@@ -11,20 +11,23 @@ import { Vue } from "vue-class-component";
 @Component
 export default class ButtonGeneral extends Vue {
   @Prop(String) readonly buttonName!: string;
-
-  @Emit("clicked")
-  clicked(){}
+  @Emit("buttonClicked")
+  buttonClicked() {}
 }
 </script>
 
 <style scoped>
 .button_general {
-  border: 1px solid black;
+  border: 1px solid #222f3e;
   border-radius: 20px;
-  padding: 10px;
+  padding: 8px;
   width: 100%;
-  background: black;
+  background: #222f3e;
   color: white;
-  font-size: 16px;
+  font-size: 14px;
+}
+
+button:focus {
+  outline: none;
 }
 </style>

@@ -13,7 +13,7 @@ import { Component, Emit } from "vue-property-decorator";
 
 export default class FileButton extends Vue {
   @Emit()
-  onInputChange(e) {
+  onInputChange(e:any) {
     return e.target.files[0];
   }
 }

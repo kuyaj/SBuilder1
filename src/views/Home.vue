@@ -10,7 +10,8 @@
         </div>
         <div class="card-name">{{ item.name }}</div>
         <div class="card-button">
-          <button class="delete">지우다</button>
+          <button-general @buttonClicked="deleteFile(item)" buttonName="지우다">
+          </button-general>
         </div>
       </div>
     </div>
@@ -20,18 +21,51 @@
 <script lang="ts">
 
 
-import { database } from '../firebaseConfig';
+import { database, storage} from '../firebaseConfig';
+import ButtonGeneral  from '../components/ButtonGeneral.vue';
+
+class Character {
+  name:string;
+  photo:string;
+}
+
 
 import { Options, Vue } from 'vue-class-component';
+
+
+@Options({
+  components: {
+    "button-general": ButtonGeneral,
+  },
+})
 export default class Home extends Vue {
 
-characters!:any; 
 
+
+public characters: Character[] = [];
+public fileRef: any;
+
+deleteFile(character: any):void {
+   var fileRef = storage.refFromURL(character.photo);
+
+      fileRef
+        .delete()
+        .then(function () {
+          database.ref("/characters/" + character.name).remove();
+          alert("File deleted!");
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+}
 
 created(){
+
+ 
  
      database.ref("characters").on("value", (snapshot) => {
-      let character = Object.entries(snapshot.val()).map((item) => {
+      let character = Object.entries(
+        snapshot.val()).map((item) => {
         var [keys, values] = item;
         var { name, link } = values;
         return {
@@ -40,7 +74,12 @@ created(){
         };
       });
       this.characters = character;
+
+
 }
+
+
+
 </script>
 
 <style>
