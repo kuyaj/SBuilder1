@@ -3,14 +3,24 @@
     <div class="card">
       <div class="card-content">
         <div class="input-field">
-          <input type="text" placeholder="이름에" />
+          <input type="text" v-model="name" placeholder="이름에" />
         </div>
       </div>
       <div class="row">
-        <img :src="image" />
+        <img v-if="image !== ''" :src="image" />
       </div>
       <div class="row">
         <file-button @onInputChange="getFile"></file-button>
+      </div>
+      <div class="row">
+        <button-general
+          buttonName="Upload"
+          @buttonClicked="uploadFile(file)"
+          buttonColor="success"
+        ></button-general>
+      </div>
+      <div class="row">
+        {{ name }}
       </div>
     </div>
   </div>
@@ -20,6 +30,9 @@
 import { Vue, Options } from "vue-class-component";
 import FileButton from "@/components/FileButton.vue";
 import ButtonGeneral from "@/components/ButtonGeneral.vue";
+import { Watch } from "vue-property-decorator";
+
+import { database, storage } from "@/firebaseConfig";
 
 @Options({
   components: {
@@ -28,11 +41,12 @@ import ButtonGeneral from "@/components/ButtonGeneral.vue";
   },
 })
 export default class CreateCharacter extends Vue {
-  file!: any;
-  reader!: any;
-  image: any = "This is image!";
+  public file!: any;
+  public reader!: any;
+  public image: any = "";
+  public name!: string = "";
 
-  getFile(file: any): void {
+  public getFile(file: any): void {
     this.file = file;
     this.reader = new FileReader();
     this.reader.onload = (e: any): void => {
@@ -40,7 +54,36 @@ export default class CreateCharacter extends Vue {
     };
     this.reader.readAsDataURL(this.file);
   }
-}
+
+  public uploadFile(): void {
+   
+  
+    let name = this.name;
+    let file = this.file;
+
+    if (name !== "" && file!== "") {
+      var storageRef = storage.ref("characters/" + name);
+      var task = storageRef.put(file);
+
+      task.on("state_changed", function (snapshot) {
+        task.snapshot.ref.getDownloadURL().then(
+          function (url) {
+            database.ref("characters/" + name).set({
+              name: name,
+              link: url,
+            });
+          },
+          function (err) {
+            console.log(err.code);
+          }
+        );
+      });
+      this.$router.push("home");
+    } else {
+      alert("Please provide a name or upload a photo!");
+    }
+  }
+
 </script>
 
 

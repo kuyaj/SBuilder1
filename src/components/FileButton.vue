@@ -13,7 +13,7 @@ import { Component, Emit } from "vue-property-decorator";
 
 export default class FileButton extends Vue {
   @Emit()
-  onInputChange(e:any) {
+  onInputChange(e: any) {
     return e.target.files[0];
   }
 }
@@ -52,6 +52,7 @@ export default class FileButton extends Vue {
   margin: 1px;
   font-size: 14px;
   border-radius: 12em;
+  font-weight: 600;
 }
 
 #fileButton + label {
