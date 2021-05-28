@@ -12,15 +12,12 @@
       <div class="row">
         <file-button @onInputChange="getFile"></file-button>
       </div>
-      <div class="row">
+      <div v-if="image != ''" class="row">
         <button-general
           buttonName="Upload"
           @buttonClicked="uploadFile(file)"
           buttonColor="success"
         ></button-general>
-      </div>
-      <div class="row">
-        {{ name }}
       </div>
     </div>
   </div>
@@ -41,6 +38,7 @@ import { database, storage } from "@/firebaseConfig";
   },
 })
 export default class CreateCharacter extends Vue {
+
   public file!: any;
   public reader!: any;
   public image: any = "";
@@ -61,6 +59,8 @@ export default class CreateCharacter extends Vue {
     let name = this.name;
     let file = this.file;
 
+    // console.log(this.name+" "+this.file.name);
+
     if (name !== "" && file!== "") {
       var storageRef = storage.ref("characters/" + name);
       var task = storageRef.put(file);
@@ -78,7 +78,9 @@ export default class CreateCharacter extends Vue {
           }
         );
       });
-      this.$router.push("home");
+     
+      alert("Upload successfully!");
+       this.$router.push({ name: 'Home'});
     } else {
       alert("Please provide a name or upload a photo!");
     }

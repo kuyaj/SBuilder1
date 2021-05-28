@@ -10,7 +10,11 @@
         </div>
         <div class="card-name">{{ item.name }}</div>
         <div class="card-button">
-          <button-general @buttonClicked="deleteFile(item)" buttonName="지우다">
+          <button-general
+            buttonSize="fullWidth"
+            @buttonClicked="deleteFile(item)"
+            buttonName="지우다"
+          >
           </button-general>
         </div>
       </div>
@@ -39,7 +43,6 @@ import { Options, Vue } from 'vue-class-component';
   },
 })
 export default class Home extends Vue {
-
 
 
 public characters: Character[] = [];
