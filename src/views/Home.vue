@@ -2,7 +2,6 @@
 
 <template>
   <div class="home">
-    <h2>홈뱆에는 있읍니다</h2>
     <div class="card-group">
       <div class="card" v-for="(item, key) in characters" :key="key">
         <div class="card-photo">
@@ -24,6 +23,7 @@
 
 <script lang="ts">
 
+import router from '@/router'
 
 import { database, storage} from '../firebaseConfig';
 import ButtonGeneral  from '../components/ButtonGeneral.vue';
@@ -51,20 +51,26 @@ public fileRef: any;
 deleteFile(character: any):void {
    var fileRef = storage.refFromURL(character.photo);
 
+   let answer = confirm("너가 진짜 삭제하고싶어요?");
+   if (answer == true){
       fileRef
         .delete()
         .then(function () {
           database.ref("/characters/" + character.name).remove();
-          alert("File deleted!");
+           alert("파일이 삭제되었어");
         })
         .catch(function (error) {
           console.log(error);
         });
+   } 
+   else {
+     alert("파일이 삭제되지 않았어!");
+   }
+
 }
+     
 
 created(){
-
- 
  
      database.ref("characters").on("value", (snapshot) => {
       let character = Object.entries(
@@ -83,6 +89,8 @@ created(){
 
 
 
+
+
 </script>
 
 <style>
@@ -93,7 +101,7 @@ h2 {
   border: transparent;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 5px;
+  grid-gap: 3px;
   grid-auto-rows: minmax(100px, auto);
 }
 

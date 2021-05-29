@@ -2,21 +2,21 @@
   <button
     class="button_general"
     @click="buttonClicked"
-    :class="[buttonColor, buttonSize]"
+    :class="[buttonColor, buttonSize, buttonFullwidth]"
   >
     {{ buttonName }}
   </button>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Emit } from "vue-property-decorator";
+import { Prop, Emit } from "vue-property-decorator";
 import { Vue } from "vue-class-component";
 
-@Component
 export default class ButtonGeneral extends Vue {
   @Prop(String) readonly buttonName!: string;
   @Prop(String) buttonColor!: string | undefined;
   @Prop(String) buttonSize!: string;
+  @Prop({ default: false }) buttonFullwidth!: boolean;
 
   @Emit("buttonClicked")
   buttonClicked() {}

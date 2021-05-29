@@ -24,6 +24,8 @@
 </template>
 
 <script lang="ts">
+import router from '@/router'
+
 import { Vue, Options } from "vue-class-component";
 import FileButton from "@/components/FileButton.vue";
 import ButtonGeneral from "@/components/ButtonGeneral.vue";
@@ -80,7 +82,7 @@ export default class CreateCharacter extends Vue {
       });
      
       alert("Upload successfully!");
-       this.$router.push({ name: 'Home'});
+       router.push({ name: 'Home'});
     } else {
       alert("Please provide a name or upload a photo!");
     }
